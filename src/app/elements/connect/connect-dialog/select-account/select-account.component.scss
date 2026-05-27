@@ -41,6 +41,10 @@
   padding-left: 10px;
 }
 
+.password-masked {
+  -webkit-text-security: disc;
+}
+
 .not-account {
   margin-bottom: 10px;
 }

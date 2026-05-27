@@ -41,6 +41,7 @@
       [(ngModel)]="manualAuthInfo.username"
       [placeholder]="usernamePlaceholder"
       [readonly]="accountSelected.username === '@USER'"
+      [attr.autocomplete]="disableBrowserPasswordManager ? 'off' : null"
       autofocus
       name="username"
       nz-input
@@ -58,10 +59,11 @@
       <input
         #password
         [(ngModel)]="manualAuthInfo.secret"
-        [autocomplete]="hidePassword ? 'new-password' : 'off'"
+        [attr.autocomplete]="disableBrowserPasswordManager ? 'one-time-code' : 'current-password'"
         [autofocus]='manualAuthInfo.username? true : null'
-        [type]="hidePassword ? 'password' : 'text'"
-        name="password"
+        [type]="disableBrowserPasswordManager ? 'text' : (hidePassword ? 'password' : 'text')"
+        [name]="disableBrowserPasswordManager ? 'jms_asset_secret' : 'password'"
+        [class.password-masked]="disableBrowserPasswordManager && hidePassword"
         nz-input
       >
       <ng-template #suffixTemplate>

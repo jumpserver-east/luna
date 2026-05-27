@@ -37,6 +37,7 @@ export class ElementSelectAccountComponent implements OnInit, OnDestroy {
 
   public hidePassword = true;
   public rememberAuthDisabled = null;
+  public disableBrowserPasswordManager: boolean;
   usernameControl = new FormControl();
   localAuthItems: AuthInfo[];
   filteredOptions: AuthInfo[];
@@ -58,6 +59,7 @@ export class ElementSelectAccountComponent implements OnInit, OnDestroy {
   ) {
     this.usernamePlaceholder = this._i18n.instant('Username');
     this.rememberAuthDisabled = !this._settingSvc.globalSetting.SECURITY_LUNA_REMEMBER_AUTH;
+    this.disableBrowserPasswordManager = this._settingSvc.globalSetting.SECURITY_LUNA_DISABLE_BROWSER_PASSWORD_MANAGER;
   }
 
   get noSecretAccounts() {
