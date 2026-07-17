@@ -1,5 +1,3 @@
-import { withSitePrefix } from '@app/utils/path';
-
 const DEVICE_URL = 'https://127.0.0.1:51245/alpha';
 const POLL_INTERVAL = 2 * 1000;
 const REQUEST_TIMEOUT = 1500;
@@ -20,8 +18,9 @@ interface CreateDeviceMonitorOptions {
   clearTimer?: (handle: any) => void;
 }
 
-function logout(): void {
-  window.location.href = withSitePrefix('/core/auth/logout/');
+// UKey 被拔出等设备异常时，重定向到首页。
+function redirectToHome(): void {
+  window.location.href = '/';
 }
 
 // 默认请求实现：用原生 fetch 请求本地设备服务，并对齐 { data } 的返回形态，附带超时控制。
@@ -55,7 +54,7 @@ const defaultRequest: DeviceRequest = {
 
 export function createDeviceMonitor({
   request = defaultRequest,
-  onDeviceError = logout,
+  onDeviceError = redirectToHome,
   setTimer = setInterval,
   clearTimer = clearInterval
 }: CreateDeviceMonitorOptions = {}) {
