@@ -1,7 +1,16 @@
 const DEVICE_URL = 'https://127.0.0.1:51245/alpha';
 const POLL_INTERVAL = 2 * 1000;
 const REQUEST_TIMEOUT = 1500;
-const REQUEST_BODY = `json=${encodeURIComponent(JSON.stringify({ function: 'SOF_EnumDevice' }))}`;
+const FORM_HEADERS = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+const LOAD_LIBRARY_BODY = `json=${JSON.stringify({
+  function: 'SOF_LoadLibrary',
+  winDllName: 'mtoken_gm3000.dll',
+  linuxSOName: 'libgm3000.1.0.so',
+  macDylibName: 'libgm3000.1.0.dylib'
+})}`;
+const REQUEST_BODY = `json=${JSON.stringify({ function: 'SOF_EnumDevice' })}`;
 
 interface DeviceResponse {
   data?: any;
@@ -81,6 +90,28 @@ export function createDeviceMonitor({
     }
   }
 
+  async function postForm(url: string, body: any): Promise<any> {
+    try {
+      const response = await request.post(url, body, {
+        headers: FORM_HEADERS,
+        timeout: REQUEST_TIMEOUT
+      });
+      return response.data;
+    } catch (error) {
+      return (error as any)?.response?.data;
+    }
+  }
+
+  function handleDeviceError(data: any, currentRunId: number): boolean {
+    if (!running || currentRunId !== runId || !hasDeviceError(data)) {
+      return false;
+    }
+
+    stop();
+    onDeviceError();
+    return true;
+  }
+
   async function poll(): Promise<void> {
     if (!running || requestInFlight) {
       return;
@@ -89,23 +120,17 @@ export function createDeviceMonitor({
     const currentRunId = runId;
     requestInFlight = true;
     try {
-      let responseData: any;
-      try {
-        const response = await request.post(DEVICE_URL, REQUEST_BODY, {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          timeout: REQUEST_TIMEOUT
-        });
-        responseData = response.data;
-      } catch (error) {
-        responseData = (error as any)?.response?.data;
+      const loadLibraryData = await postForm(DEVICE_URL, LOAD_LIBRARY_BODY);
+      if (handleDeviceError(loadLibraryData, currentRunId)) {
+        return;
       }
 
-      if (running && currentRunId === runId && hasDeviceError(responseData)) {
-        stop();
-        onDeviceError();
+      if (!running || currentRunId !== runId || !loadLibraryData) {
+        return;
       }
+
+      const responseData = await postForm(DEVICE_URL, REQUEST_BODY);
+      handleDeviceError(responseData, currentRunId);
     } finally {
       requestInFlight = false;
     }
