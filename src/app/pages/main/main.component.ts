@@ -165,7 +165,7 @@ export class PageMainComponent implements OnInit {
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     this._http.deleteUserSession().subscribe();
-    if (!environment.production || this.isDirectNavigation) {
+    if (!environment.production || this.isDirectNavigation || window.__DEVICE_FORCE_LEAVE__) {
       return;
     }
 

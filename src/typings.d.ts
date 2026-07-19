@@ -8,6 +8,7 @@ interface Window {
   __BASE_PATH__?: string;
   __UI_BASE__?: string;
   __LUNA_BASE__?: string;
+  __DEVICE_FORCE_LEAVE__?: boolean;
 }
 
 declare module 'sm-crypto';

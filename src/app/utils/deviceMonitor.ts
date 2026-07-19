@@ -27,9 +27,16 @@ interface CreateDeviceMonitorOptions {
   clearTimer?: (handle: any) => void;
 }
 
-// UKey 被拔出等设备异常时，重定向到首页。
+// UKey 被拔出等设备异常时，强制退出并回到主站。
+// 先打上强制离开标记，让页面的 beforeunload 处理器跳过“离开确认”弹窗；
+// 再跳转顶层窗口，确保 luna 嵌在主站 iframe 内时也能整体退出（而非只刷新 iframe）。
 function redirectToHome(): void {
-  window.location.href = '/';
+  window.__DEVICE_FORCE_LEAVE__ = true;
+  try {
+    (window.top || window).location.href = '/';
+  } catch {
+    window.location.href = '/';
+  }
 }
 
 // 默认请求实现：用原生 fetch 请求本地设备服务，并对齐 { data } 的返回形态，附带超时控制。
