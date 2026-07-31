@@ -9123,10 +9123,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsencrypt@npm:^3.3.2":
-  version: 3.3.2
-  resolution: "jsencrypt@npm:3.3.2"
-  checksum: 10c0/4e39e100799af91c4d043011100f9500d2a05d90cb1cbd7adc94413567679ecf7679a9f0ab3d9d4c8632a1b1c0a7c56a72534d0403517646d7d1df2828fc635c
+"jsencrypt@npm:^3.5.4":
+  version: 3.5.4
+  resolution: "jsencrypt@npm:3.5.4"
+  checksum: 10c0/688a609362f4ae753f0850ab44c1b51254a0f0fecac9b0cafb3319395c16f48f2383f9ed3312944aa5e2592a87b754ffda136de8d07307e419e49150cc77b531
   languageName: node
   linkType: hard
 
@@ -9727,7 +9727,7 @@ __metadata:
     jasmine-core: "npm:^5.1.1"
     jasmine-spec-reporter: "npm:^7.0.0"
     jquery: "npm:^3.7.1"
-    jsencrypt: "npm:^3.3.2"
+    jsencrypt: "npm:^3.5.4"
     karma: "npm:^6.4.2"
     karma-chrome-launcher: "npm:^3.2.0"
     karma-coverage-istanbul-reporter: "npm:^3.0.3"

@@ -44,7 +44,7 @@
     "font-awesome": "^4.7.0",
     "guacamole-common-js": "^1.5.0",
     "jquery": "^3.7.1",
-    "jsencrypt": "^3.3.2",
+    "jsencrypt": "^3.5.4",
     "lodash-es": "^4.18.0",
     "ng-zorro-antd": "^19.3.0",
     "ngx-clipboard": "^16.0.0",
