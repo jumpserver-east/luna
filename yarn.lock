@@ -9734,7 +9734,6 @@ __metadata:
     karma-jasmine: "npm:^5.1.0"
     karma-jasmine-html-reporter: "npm:^2.1.0"
     lodash-es: "npm:^4.18.0"
-    metismenu: "npm:^3.0.7"
     ng-zorro-antd: "npm:^19.3.0"
     ngx-clipboard: "npm:^16.0.0"
     ngx-cookie-service: "npm:^19.0.0"
@@ -9860,15 +9859,6 @@ __metadata:
   version: 1.1.2
   resolution: "methods@npm:1.1.2"
   checksum: 10c0/bdf7cc72ff0a33e3eede03708c08983c4d7a173f91348b4b1e4f47d4cdbf734433ad971e7d1e8c77247d9e5cd8adb81ea4c67b0a2db526b758b2233d7814b8b2
-  languageName: node
-  linkType: hard
-
-"metismenu@npm:^3.0.7":
-  version: 3.0.7
-  resolution: "metismenu@npm:3.0.7"
-  peerDependencies:
-    jquery: ^3.4.1
-  checksum: 10c0/5e31a2e117c8f9e4feabdfaee9dda2b5b2a75f71966bb5d2864575d17cc6c5e0e5b6354644346d8b1d31e9418609143c5d29fd5d5ead63135da881d3a5589f33
   languageName: node
   linkType: hard
 
